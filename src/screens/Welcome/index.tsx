@@ -15,13 +15,13 @@ function Welcome () {
   const navigation = useNavigation()
 
   const getUser = async () => {
-    const userString = await AsyncStorage.getItem('@platmanager:user')
+    // const userString = await AsyncStorage.getItem('@platmanager:user')
 
-    const user = userString ? JSON.parse(userString) : {}
+    // const user = userString ? JSON.parse(userString) : {}
 
-    if (!user?.username) return navigation.navigate('UserIdentification')
+    // if (!user?.username) return navigation.navigate('UserIdentification')
 
-    navigation.navigate('PlantSelect')
+    navigation.navigate('UserIdentification')
   }
 
   return (

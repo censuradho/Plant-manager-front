@@ -8,15 +8,18 @@ import * as Styles from './styles'
 
 interface Params {
   title: string,
-  subtitle: string,
-  buttonTitle: string,
-  icon: 'smile' | 'hug',
-  nextScreen: string,
+  subtitle?: string,
+  buttonTitleTop: string,
+  buttonTitleBottom?: string
+  icon: 'smile' | 'hug' | 'self',
+  nextScreenTop: string,
+  nextScreenBottom?: string
 }
 
 const emojins = {
   smile: '😁',
-  hug: '🤗'
+  hug: '🤗',
+  self: '🤳'
 }
 
 function Confirmation () {
@@ -24,9 +27,11 @@ function Confirmation () {
   const route = useRoute()
 
   const { 
-    buttonTitle,
+    buttonTitleTop,
+    buttonTitleBottom,
     icon,
-    nextScreen,
+    nextScreenTop,
+    nextScreenBottom,
     subtitle,
     title
   } = route.params as Params
@@ -36,9 +41,16 @@ function Confirmation () {
       <Styles.Container>
         <Styles.Emoji>{emojins[icon]}</Styles.Emoji>
         <Styles.Title>{title}</Styles.Title>
-        <Styles.Body>{subtitle}</Styles.Body>
+        {subtitle && <Styles.Body>{subtitle}</Styles.Body>}
         <Styles.Footer>
-          <Button fill onPress={() => navigation.navigate(nextScreen)}>{buttonTitle}</Button>
+          <Button fill onPress={() => navigation.navigate(nextScreenTop)}>{buttonTitleTop}</Button>
+          {nextScreenBottom && (
+            <Button 
+              fill
+              stroke 
+              onPress={() => navigation.navigate(nextScreenBottom)}
+            >{buttonTitleBottom}</Button>
+          )}
         </Styles.Footer>
       </Styles.Container>
     </SafeAreaView>

@@ -23,6 +23,19 @@ export interface StoragePlant {
   }
 }
 
+export interface User {
+  id: string,
+  username: string,
+  user_image?: string
+}
+
+
+export interface SotrageUser {
+  [id: string]: {
+    data: Plant
+  }
+}
+
 export async function savePlant (plant: Plant) {
   
   try {
@@ -94,5 +107,30 @@ export async function deletePlant (id: number) {
   }
 }
 
+export async function saveUser (user: Partial<User>) {
+  if (!user.id) throw new Error('id is required')
+  
+  const data = await AsyncStorage.getItem('@platmanager:user')
+  const storagedUsers = data? (JSON.parse(data) as SotrageUser) : {}
+
+
+  const newUser = {
+    [user.id]: { data: user }
+  }
+
+
+  if (storagedUsers) {
+    const save = {
+      ...storagedUsers, 
+      ...newUser,
+    }
+    
+    await AsyncStorage.setItem('@platmanager:user', JSON.stringify(save))
+    return save
+  }
+
+  await AsyncStorage.setItem('@platmanager:user', JSON.stringify(newUser))
+  return newUser
+}
 
 

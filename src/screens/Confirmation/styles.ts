@@ -14,6 +14,8 @@ export const Title = styled.Text`
   color: ${props => props.theme.colors.heading};
   font-size: 24px;
   margin-top: 64px;
+  text-align: center;
+  max-width: 250px;
 `
 
 export const Card = styled.View`
@@ -34,5 +36,7 @@ export const Emoji = styled.Text`
 export const Footer = styled.View`
   padding: 0 20px;
   width: 100%;
+  min-height: 120px;
   margin-top: 40px;
+  justify-content: space-between;
 `

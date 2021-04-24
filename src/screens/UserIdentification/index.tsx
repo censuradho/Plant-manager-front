@@ -3,6 +3,9 @@ import { SafeAreaView, KeyboardAvoidingView, Platform, TouchableWithoutFeedback,
 import { useFormik, Formik } from 'formik'
 import * as Yup from 'yup'
 import AsyncStorage  from '@react-native-async-storage/async-storage'
+import { v4 as uuid } from 'uuid'
+
+import { saveUser } from '../../libs/storage'
 
 import TextInput from '../../components/base/TextInput'
 import Button from '../../components/base/Button'
@@ -22,12 +25,25 @@ function UserIdentification () {
 
     await AsyncStorage.setItem('@platmanager:user', JSON.stringify({ username: formik.values.name }))
 
+    await saveUser({
+      id: uuid(),
+      username: formik.values.name
+     })
+
+    // const confirmation = {
+    //   buttonTitle: 'Começar',
+    //   icon: 'smile',
+    //   nextScreen: 'PlantSelect',
+    //   title: 'Prontinho',
+    //   subtitle: ' Agora vamos começar a cuidar das suas plantinhas com muito cuidado.',
+    // }
     navigation.navigate('Confirmation', {
-      buttonTitle: 'Começar',
-      icon: 'smile',
-      nextScreen: 'PlantSelect',
-      title: 'Prontinho',
-      subtitle: ' Agora vamos começar a cuidar das suas plantinhas com muito cuidado.',
+      buttonTitleTop: 'Adicionar',
+      buttonTitleBottom: 'Pular por enquanto',
+      icon: 'self',
+      nextScreenTop: 'UserPhoto',
+      nextScreenBottom: 'PlantSelect',
+      title: 'Deseja adicionar uma foto de perfil?',
     })
   }
 
