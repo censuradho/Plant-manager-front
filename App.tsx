@@ -25,9 +25,8 @@ export default function App() {
     return subscription.remove()
   }, [])
 
-  if (!isfontLoaded) {
-    return <AppLoading />
-  }
+  if (!isfontLoaded) return <AppLoading />
+  
 
   return (
     <Provider store={store}>

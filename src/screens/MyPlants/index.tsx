@@ -6,32 +6,33 @@ import Header from '../../components/base/Header'
 import PlantCardSecundary from '../../components/PlantCardSecundary'
 import Loader from '../../components/base/Loader'
 
-import { Plant, loadPlant, deletePlant } from '../../libs/storage'
+import { Plant } from '../../libs/storage'
 
 import * as Styles from './styles'
 import { FlatList } from 'react-native-gesture-handler'
 import { Alert } from 'react-native'
+import { useFocusEffect } from '@react-navigation/core'
+import { useSelector } from 'react-redux'
+import usePlant from '../../hooks/usePlant'
 
 function MyPlants () {
-  const [plants, setPlants] = useState<Plant[]>([])
+  const user = useSelector(value => value.user)
+  const { plants, deletePLant, isLoading, getPlants } = usePlant()
   const [loading, setLoading] = useState(true)
-  const [nextWaterd, setNextWarted] = useState<string>()
+  const [nextWaterd, setNextWarted] = useState<string>('')
 
   const handleLoadStorage = async () => {
     try {
-      const plantStorage = await loadPlant()
-
       const nextTime = formatDistance(
-        new Date(plantStorage[0].dateTimeNotification).getTime(), 
+        new Date(plants[0].dateTimeNotification).getTime(), 
         new Date().getTime(),
         { locale: pt }
       )
   
-      setNextWarted(`Não esqueça de regar a ${plantStorage[0].name} às ${nextTime}.`)
-      setPlants(plantStorage)
-      setLoading(false)
+      setNextWarted(`Não esqueça de regar a ${plants[0].name} em ${nextTime}.`)
     } catch (err) {
       console.log(err)
+      setNextWarted('')
     }
   }
 
@@ -40,8 +41,8 @@ function MyPlants () {
       { text: 'Não', style: 'cancel' },
       { text: 'Sim',  onPress: async () => {
         try {
-          await deletePlant(plant.id)
-          setPlants(prevState => prevState.filter(value => value.id !== plant.id))
+          await deletePLant(plant.id)
+          setNextWarted('')
         } catch (err) {
           Alert.alert('Não foi possível remover!')
         }
@@ -51,33 +52,43 @@ function MyPlants () {
 
   useEffect(() => {
     handleLoadStorage()
-  }, [])
+  }, [plants])
 
-  if (loading) return <Loader />
+  if (isLoading) return <Loader />
  
   return (
     <Styles.Container>
       <Header />
-      <Styles.SpotLight>
-        <Styles.SpotLightImage source={require('../../assets/waterdrop.png')} />
-        <Styles.SpotLightText>{nextWaterd}</Styles.SpotLightText>
-      </Styles.SpotLight>
+      {!!nextWaterd && (
+        <Styles.SpotLight>
+          <Styles.SpotLightImage source={require('../../assets/waterdrop.png')} />
+          <Styles.SpotLightText>{nextWaterd}</Styles.SpotLightText>
+        </Styles.SpotLight>
+      )}
       <Styles.Plants>
-        <Styles.PlantsTitle>Pŕoximas regadas</Styles.PlantsTitle>
-        <Styles.ScrollView showsVerticalScrollIndicator={false}>
-          <FlatList
-            data={plants}
-            keyExtractor={item => item.id}
-            renderItem={({ item }) => (
-              <PlantCardSecundary 
-                data={item}
-                handleRemove={() => handleRemove(item)}
-              />
-            )}
-            showsVerticalScrollIndicator={false}
-            contentContainerStyle={{ flex: 1}}
-          />
-        </Styles.ScrollView>
+        {plants.length > 0 ? (
+          <>
+            <Styles.PlantsTitle>Pŕoximas regadas</Styles.PlantsTitle>
+            <FlatList
+              data={plants}
+              keyExtractor={item => item.id}
+              renderItem={({ item }) => (
+                <PlantCardSecundary 
+                  data={item}
+                  handleRemove={() => handleRemove(item)}
+                />
+              )}
+              showsVerticalScrollIndicator={false}
+              refreshing={isLoading}
+              onRefresh={() => getPlants(user.id)}
+            />
+          </>
+        ) : (
+          <Styles.EmptyContainer>
+            <Styles.EmptyImage resizeMethod="scale" source={require('../../assets/empty.png')} />
+            <Styles.EmptyText>Você ainda não tem uma plantinha para regar.</Styles.EmptyText>
+          </Styles.EmptyContainer>
+        )}
       </Styles.Plants>
     </Styles.Container>
   )

@@ -1,33 +1,33 @@
 import React, { useEffect, useState } from 'react'
-import { View } from 'react-native'
+import { TouchableWithoutFeedback, View } from 'react-native'
+import { useSelector } from 'react-redux'
 
-import AsyncStorage from '@react-native-async-storage/async-storage'
+import useInitials from '../../../hooks/useInitials'
 
 import * as Styles from './styles'
+import { useNavigation } from '@react-navigation/core'
 
 function Header () {
-  const [username, setUsername] = useState('')
+  const user = useSelector(value => value.user)
+  const navigation = useNavigation()
 
-  const getUserInfo = async () => {
-    const user = await AsyncStorage.getItem('@platmanager:user')
-    if (!user) return;
-
-    const data = JSON.parse(user)
-
-    setUsername(data.username)
-  }
-
-  useEffect(() => {
-    getUserInfo()
-  }, [])
+  const { initials } = useInitials('Usuário')
 
   return (
     <Styles.Container>
       <View>
         <Styles.Strong>Olá,</Styles.Strong>
-        <Styles.Username>{username}</Styles.Username>
+        <Styles.Username>{user.username}</Styles.Username>
       </View>
-      <Styles.Image source={require('../../../assets/perfil.jpeg')} />
+      <TouchableWithoutFeedback onLongPress={() => navigation.navigate('Perfil')}>
+        {user.user_image ? (
+            <Styles.Image source={{ uri: user.user_image}} />
+        ) : (
+          <Styles.InitialContainer>
+            <Styles.Initials>{initials}</Styles.Initials>
+          </Styles.InitialContainer>
+        )}
+      </TouchableWithoutFeedback>
     </Styles.Container>
   )
 }

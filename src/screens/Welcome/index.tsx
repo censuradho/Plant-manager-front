@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import  { StatusBar, Dimensions, Image, SafeAreaView } from 'react-native'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 
@@ -11,18 +11,17 @@ import Button from '../../components/base/Button'
 import wateringImg from '../../assets/watering.png'
 import { useNavigation } from '@react-navigation/core'
 
+import useConfig from '../../hooks/useConfig'
+
 function Welcome () {
   const navigation = useNavigation()
+  const { saveConfig, config } = useConfig()
 
   const getUser = async () => {
-    // const userString = await AsyncStorage.getItem('@platmanager:user')
 
-    // const user = userString ? JSON.parse(userString) : {}
-
-    // if (!user?.username) return navigation.navigate('UserIdentification')
-
-    navigation.navigate('UserIdentification')
+    navigation.navigate('SignIn')
   }
+
 
   return (
     <SafeAreaView style={{ flex: 1 }}>

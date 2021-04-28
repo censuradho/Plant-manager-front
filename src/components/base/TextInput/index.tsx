@@ -1,16 +1,14 @@
 import React, { useState } from 'react'
-import { NativeSyntheticEvent, TextInputProps, TextInputFocusEventData } from 'react-native'
+import { NativeSyntheticEvent, TextInputProps, TextInputFocusEventData,  } from 'react-native'
 
 import * as Styles from './styles'
 
-type NativeProps = Omit<TextInputProps, ''>
-
-interface Props extends NativeProps {
+interface Props extends TextInputProps {
   isError?: boolean,
   errorText?: string
 }
 
-function TextInput ({onFocus, onBlur, ...props}: Props) {
+function TextInput ({onFocus, onBlur, isError, errorText, ...props}: Props) {
   const [isFocus, setIsFocus] = useState(false)
   const [isBlur, setIsBlur] = useState(false)
 
@@ -29,14 +27,13 @@ function TextInput ({onFocus, onBlur, ...props}: Props) {
   return (
     <Styles.Container>
       <Styles.Input
+        {...props}
         isBlur={isBlur}
         isFocus={isFocus}
         onBlur={handleBlur}
         onFocus={handleFoucus}
-        {...props}
-
       />
-      <Styles.Label>{props?.errorText}</Styles.Label>
+      <Styles.Label>{errorText}</Styles.Label>
     </Styles.Container>
   )
 }

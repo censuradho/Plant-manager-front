@@ -24,6 +24,19 @@ export const Strong = styled.Text`
 export const Image = styled.Image`
   width: 80px;
   height: 80px;
+  border-radius: 40px; 
+`
+
+export const InitialContainer = styled.View`
+  width: 80px;
+  height: 80px;
   border-radius: 40px;
-  
+  align-items: center;
+  justify-content: center;
+  background: ${props => props.theme.colors.shape};
+`
+export const Initials = styled.Text`
+  font-size: 28px;
+  font-family: ${props => props.theme.fonts.heading};
+  text-transform: uppercase;
 `

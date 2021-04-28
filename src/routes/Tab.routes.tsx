@@ -1,10 +1,12 @@
 import React from 'react'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
-import { MaterialIcons as Icon } from '@expo/vector-icons'
+import { MaterialIcons as Icon, Ionicons } from '@expo/vector-icons'
 
 import useTheme from '../hooks/useTheme';
 import PlantSelect from '../screens/PlantSelect';
 import MyPlants from '../screens/MyPlants';
+import Configurations from '../screens/Configurations'
+import Perfil from '../screens/Perfil';
 
 const AppTab = createBottomTabNavigator();
 
@@ -16,9 +18,8 @@ function AuthRoutes () {
       tabBarOptions={{
         activeTintColor: colors.green,
         inactiveTintColor: colors.heading,
-        labelPosition: 'beside-icon',
         style: {
-          height: 88
+          paddingHorizontal: 10,
         }
       }}
     >
@@ -42,6 +43,19 @@ function AuthRoutes () {
           tabBarIcon: ({ size, color }) => (
             <Icon 
               name="format-list-bulleted" 
+              size={size} 
+              color={color} 
+            />
+          )
+        }}
+      />
+      <AppTab.Screen  
+        name="Configurations" 
+        component={Configurations} 
+        options={{
+          tabBarIcon: ({ size, color }) => (
+            <Ionicons 
+              name="settings-outline" 
               size={size} 
               color={color} 
             />

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useNavigation, useRoute } from '@react-navigation/core'
 import { SafeAreaView } from 'react-native'
 
@@ -25,7 +25,7 @@ const emojins = {
 function Confirmation () {
   const navigation = useNavigation()
   const route = useRoute()
-
+  
   const { 
     buttonTitleTop,
     buttonTitleBottom,

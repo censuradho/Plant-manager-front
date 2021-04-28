@@ -19,7 +19,6 @@ export const Input = styled.TextInput<Props>`
   width: 100%;
   font-size: 18px;
   padding: 10px;
-  text-align: center;
 `
 
 export const Container = styled.View<{ isError?: boolean }>`

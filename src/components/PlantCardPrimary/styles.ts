@@ -7,7 +7,7 @@ export const Container = styled(RectButton)`
   max-width: 45%;
   background-color: ${props => props.theme.colors.shape};
   border-radius: 20px;
-  padding: 20px 0;
+  padding: 20px 0px;
   margin: 10px;
   align-items: center;
 `
@@ -15,7 +15,7 @@ export const Container = styled(RectButton)`
 export const Text = styled.Text`
   color: ${props => props.theme.colors.green_dark};
   font-family: ${props => props.theme.fonts.heading};
-  margin: 16px 0;
+  margin: 16px 0px;
 `
 
 export const Image = styled(SvgFromUri)`

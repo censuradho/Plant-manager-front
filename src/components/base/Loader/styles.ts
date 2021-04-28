@@ -9,6 +9,6 @@ export const Container = styled.View`
 
 export const Lotti = styled(LottiView)`
   background: transparent;
-  width: 200;
-  height: 200
+  width: 200px;
+  height: 200px
 `

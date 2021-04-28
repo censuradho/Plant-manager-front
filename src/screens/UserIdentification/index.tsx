@@ -1,19 +1,23 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import { SafeAreaView, KeyboardAvoidingView, Platform, TouchableWithoutFeedback, Keyboard } from 'react-native'
-import { useFormik, Formik } from 'formik'
+import { useFormik } from 'formik'
 import * as Yup from 'yup'
-import AsyncStorage  from '@react-native-async-storage/async-storage'
-import { v4 as uuid } from 'uuid'
+import { useDispatch, useSelector } from 'react-redux'
 
 import { saveUser } from '../../libs/storage'
 
 import TextInput from '../../components/base/TextInput'
 import Button from '../../components/base/Button'
 
+import { setUser } from '../../store/ducks/user/actions'
+
 import * as Styles from './styles'
 import { useNavigation } from '@react-navigation/core'
 
 function UserIdentification () {
+  const dispatch = useDispatch()
+  const user = useSelector(value => value.user)
+
   const navigation = useNavigation()
   
   const validationSchema = Yup.object({
@@ -21,22 +25,22 @@ function UserIdentification () {
       .string()
       .required('Campo obrigatório')
   })
+  
   const handleSubmit = async () => {
 
-    await AsyncStorage.setItem('@platmanager:user', JSON.stringify({ username: formik.values.name }))
+    try {
+      const newUser = {
+        ...user,
+        username: formik.values.name
+       }
+  
+      const userSaved = await saveUser(newUser)
+  
+       dispatch(setUser(userSaved))
+    } catch (err) {
+      console.log(err)
+    }
 
-    await saveUser({
-      id: uuid(),
-      username: formik.values.name
-     })
-
-    // const confirmation = {
-    //   buttonTitle: 'Começar',
-    //   icon: 'smile',
-    //   nextScreen: 'PlantSelect',
-    //   title: 'Prontinho',
-    //   subtitle: ' Agora vamos começar a cuidar das suas plantinhas com muito cuidado.',
-    // }
     navigation.navigate('Confirmation', {
       buttonTitleTop: 'Adicionar',
       buttonTitleBottom: 'Pular por enquanto',
@@ -62,7 +66,7 @@ function UserIdentification () {
         style={{ flex: 1 }}
         behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
       >
-        <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+        <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
           <Styles.Container>
           <Styles.Form>
             <Styles.Emoji>{formik.values.name.length > 0 ? '😄' : '😃'}</Styles.Emoji>

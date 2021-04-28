@@ -12,6 +12,7 @@ import { isBefore, format } from 'date-fns'
 import * as Styles from './styles'
 
 import { Plant, savePlant } from '../../libs/storage'
+import { useSelector } from 'react-redux'
 
 interface Params {
   plant: Plant
@@ -21,6 +22,7 @@ function PlantSave () {
   const { colors } = useTheme()
   const route = useRoute()
   const navigation = useNavigation()
+  const user = useSelector(value => value.user)
 
   const { plant } = route.params as Params
 
@@ -43,22 +45,22 @@ function PlantSave () {
   const handleSave = async () => {
 
     try {
-      await savePlant({
+      await savePlant(user.id, {
         ...plant,
         dateTimeNotification: selectedDateTime
       })
 
       
       navigation.navigate('Confirmation', {
-        buttonTitle: 'Muito obrigado :D',
+        buttonTitleTop: 'Muito obrigado :D',
         icon: 'hug',
-        nextScreen: 'MyPlants',
+        nextScreenTop: 'MyPlants',
         title: 'Tudo certo',
         subtitle: 'Fique tranquilo que sempre vamos lembrar você de cuidar da sua plantinha com bastante amor.',
       })
 
     } catch (err) {
-      console.log(err )
+      console.log(err)
       if (err === 'Planta já cadastrada') {
         Alert.alert('Planta já cadastrada')
         return

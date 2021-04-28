@@ -47,3 +47,22 @@ export const PlantsTitle = styled.Text`
   font-family: ${props => props.theme.fonts.heading};
   margin: 20px  0px;
 `
+
+export const EmptyContainer = styled.View`
+  flex: 1;
+  justify-content: space-around;
+  align-items: center;
+  margin-top: 30px;
+`
+
+export const EmptyText = styled.Text`
+  font-size: 17px;
+  color: ${props => props.theme.colors.heading}; 
+  font-family: ${props => props.theme.fonts.text};
+  text-align: center;
+`
+
+export const EmptyImage = styled.Image`
+  width: 248.72px;
+  height: 233.06px
+`

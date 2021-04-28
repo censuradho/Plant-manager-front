@@ -6,9 +6,8 @@ import EnvButton from '../../components/base/EnvButton'
 import Header from '../../components/base/Header'
 import Loader from '../../components/base/Loader'
 import PlantCardPrimary from '../../components/PlantCardPrimary'
-import api from '../../services/api'
 
-import { Box } from '../../theme/Global'
+import api from '../../services/api'
 
 import * as styles from './styles'
 import useTheme from '../../hooks/useTheme'
@@ -43,7 +42,8 @@ function PlantSelect () {
       _sort: 'title',
       _order: 'asc'
     })
-    const { data } = await api.get('plants_environments?_sort=title&_order=asc')
+
+    const { data } = await api.get(`plants_environments?${filters}`)
     setEnvironments([
       { key: 'all', title: 'todos' },
       ...data
@@ -58,17 +58,21 @@ function PlantSelect () {
       _limit: 8
     })
 
-    const { data } = await api.get(`plants?$${filters}`)
+    try {
+      const { data } = await api.get(`plants?$${filters}`)
 
-    if (!data) return;
-    
-    if (page > 1) {
-      setPlants(prevState => ([...prevState, ...data]))
-      setFilteredPlants(prevState => ([...prevState, ...data]))
-
-    } else {
-      setPlants(data)
-      setFilteredPlants(data)
+      if (!data) return;
+      
+      if (page > 1) {
+        setPlants(prevState => ([...prevState, ...data]))
+        setFilteredPlants(prevState => ([...prevState, ...data]))
+  
+      } else {
+        setPlants(data)
+        setFilteredPlants(data)
+      }
+    } catch (err) {
+      console.log(err)
     }
 
     setLoading(false)
