@@ -6,14 +6,21 @@ Muitas vezes no nosso dia a dia corrido esquecemos de regar as plantas que alegr
 
 Projeto desenvolvido na semana Next Level Week da @rocketseat. 
 
-## Features
+## 🏋️ Features
 * [✔️] Login
 * [✔️] Agendamento de uma notificação
 * [✔️] Costumização do perfil (Foto/Nome de usuário)
 
-## 🔨Uso rápido (Source Code)
+## 👨‍💻 Tenologias usadas.
+- React Native
+- Expo
+- Typescript
+- Styled-components
+- Redux
 
-### Device físico s/ emulador (SmartPhone)
+## 🔨 Uso rápido (Source Code)
+
+### 📱 Device físico s/ emulador (SmartPhone)
 - clone o repositório
 - Rode o comando `npm install` ou `yarn` para quem usa o yarn como gerenciador de dependência.
 - Download [Node.js](https://nodejs.org/en/) (LTS release)
@@ -22,6 +29,6 @@ Projeto desenvolvido na semana Next Level Week da @rocketseat.
 - Download o APP do Expo na [Play Store](https://play.google.com/store/apps/details?id=host.exp.exponent)/[Apple Store](https://apps.apple.com/br/app/expo-go/id982107779) 
 - Escaneie o QR Code e pronto.
 
-### Rodando o servidor
+### 🖥 Rodando o servidor
 - Instale o [json-server](https://www.npmjs.com/package/json-server) globalmente.
 - para rodar o servidor `json-server ./path/to/server.json --delay 1000 --port 3333 --host 192.168.0.103`
