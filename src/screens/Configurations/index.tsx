@@ -57,6 +57,10 @@ function Configurations () {
     <Styles.Container>
       <Styles.Title>Configurações</Styles.Title>
       <Styles.Hr />
+      <Styles.Button onPress={() => navigation.navigate('Theme')}>
+        <MaterialIcons name="color-lens" size={24} color={colors.heading} />
+        <Styles.Label>Tema</Styles.Label>
+      </Styles.Button>
       <Styles.WarnButton onPress={exit}>
       <MaterialIcons name="exit-to-app" size={24} color={colors.heading} />
         <Styles.WarnText>Sair</Styles.WarnText>

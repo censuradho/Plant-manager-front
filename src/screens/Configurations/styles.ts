@@ -16,17 +16,24 @@ export const Title = styled.Text`
 export const Hr = styled.View`
   width: 100%;
   height: 1px;
-  background: rgba(0 ,0 ,0 , .3);
+  background: ${props => props.theme.colors.shape};
 `
 
-export const WarnButton = styled.TouchableOpacity`
-flex-direction: row;
-padding: 20px 0;
+export const Button = styled.TouchableOpacity`
+  flex-direction: row;
+  padding: 20px 0;
 `
 
-export const WarnText = styled.Text`
+export const Label = styled.Text`
   color: ${props => props.theme.colors.heading};
   font-family: ${props => props.theme.fonts.text};
   font-size: 17px;
   margin-left: 15px;
+`
+export const WarnButton = styled(Button)`
+
+`
+
+export const WarnText = styled(Label)`
+
 `

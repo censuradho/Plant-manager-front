@@ -16,6 +16,7 @@ import { loadConfig } from '../libs/storage'
 import useCurrentUser from '../hooks/useCurrentUser'
 import Perfil from '../screens/Perfil'
 import useConfig from '../hooks/useConfig'
+import Theme from '../screens/Configurations/Theme'
 
 const stackRoutes = createStackNavigator()
 
@@ -44,6 +45,7 @@ function AppRoutes () {
       <stackRoutes.Screen name="PlantSave" component={PlantSave} />
       <stackRoutes.Screen name="PlantSelect" component={AuthRoutes} />
       <stackRoutes.Screen name="MyPlants" component={AuthRoutes} />
+      <stackRoutes.Screen name="Theme" component={Theme} />
       <stackRoutes.Screen name="Perfil" component={Perfil} options={{
         cardStyleInterpolator: CardStyleInterpolators.forVerticalIOS
       }} />

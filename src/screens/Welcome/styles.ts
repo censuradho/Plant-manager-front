@@ -6,6 +6,7 @@ export const Container = styled.View`
   justify-content: space-around;
   padding: 0 24px;
   padding-bottom: 24px;
+  background: ${props => props.theme.colors.background};
 `
 
 export const Text = styled.Text`

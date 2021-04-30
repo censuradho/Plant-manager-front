@@ -5,7 +5,7 @@ import { MaterialIcons as Icon, Ionicons } from '@expo/vector-icons'
 import useTheme from '../hooks/useTheme';
 import PlantSelect from '../screens/PlantSelect';
 import MyPlants from '../screens/MyPlants';
-import Configurations from '../screens/Configurations'
+import Configurations from './Config.routes'
 import Perfil from '../screens/Perfil';
 
 const AppTab = createBottomTabNavigator();
@@ -20,7 +20,9 @@ function AuthRoutes () {
         inactiveTintColor: colors.heading,
         style: {
           paddingHorizontal: 10,
-        }
+          backgroundColor: colors.shape,
+          borderTopColor: colors.shape,
+        },
       }}
     >
       <AppTab.Screen 
@@ -49,6 +51,7 @@ function AuthRoutes () {
           )
         }}
       />
+      
       <AppTab.Screen  
         name="Configurations" 
         component={Configurations} 
@@ -59,7 +62,7 @@ function AuthRoutes () {
               size={size} 
               color={color} 
             />
-          )
+          ),
         }}
       />
     </AppTab.Navigator>

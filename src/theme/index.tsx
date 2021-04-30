@@ -3,6 +3,7 @@ import { ThemeProvider } from 'styled-components'
 
 
 import light from './light'
+import dark from './dark'
 
 interface ThemeProps {
 	children: React.ReactNode

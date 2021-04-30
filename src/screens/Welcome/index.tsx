@@ -12,20 +12,20 @@ import wateringImg from '../../assets/watering.png'
 import { useNavigation } from '@react-navigation/core'
 
 import useConfig from '../../hooks/useConfig'
+import useTheme from '../../hooks/useTheme'
 
 function Welcome () {
   const navigation = useNavigation()
-  const { saveConfig, config } = useConfig()
+  const { colors } = useTheme()
 
   const getUser = async () => {
-
     navigation.navigate('SignIn')
   }
 
 
   return (
     <SafeAreaView style={{ flex: 1 }}>
-    <StatusBar backgroundColor="transparent" networkActivityIndicatorVisible barStyle="dark-content" />
+    <StatusBar backgroundColor={colors.background} networkActivityIndicatorVisible  />
     <Styles.Container>
       <Styles.Title>Gerencie {'\n'} suas plantas de {'\n'} forma fácil</Styles.Title>
       <Image 

@@ -15,7 +15,7 @@ export const Label = styled.Text`
 export const Input = styled.TextInput<Props>`
   border-bottom-width: 2px;
   border-bottom-color: ${props => props.isFocus ? props.theme.colors.green : props.theme.colors.gray};
-  color: ${props => props.theme.colors.heading};
+  color: ${props => props.theme.colors.body_light};
   width: 100%;
   font-size: 18px;
   padding: 10px;

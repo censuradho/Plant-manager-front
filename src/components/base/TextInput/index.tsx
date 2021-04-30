@@ -1,9 +1,10 @@
 import React, { useState } from 'react'
-import { NativeSyntheticEvent, TextInputProps, TextInputFocusEventData,  } from 'react-native'
+import { NativeSyntheticEvent, TextInput as TextInputComponent, TextInputFocusEventData,  } from 'react-native'
+import { useTheme } from 'styled-components'
 
 import * as Styles from './styles'
 
-interface Props extends TextInputProps {
+interface Props extends React.ComponentProps<typeof TextInputComponent> {
   isError?: boolean,
   errorText?: string
 }
@@ -11,6 +12,7 @@ interface Props extends TextInputProps {
 function TextInput ({onFocus, onBlur, isError, errorText, ...props}: Props) {
   const [isFocus, setIsFocus] = useState(false)
   const [isBlur, setIsBlur] = useState(false)
+  const { colors } = useTheme()
 
   const handleFoucus = (event: NativeSyntheticEvent<TextInputFocusEventData>) => {
     setIsFocus(true)
@@ -32,6 +34,7 @@ function TextInput ({onFocus, onBlur, isError, errorText, ...props}: Props) {
         isFocus={isFocus}
         onBlur={handleBlur}
         onFocus={handleFoucus}
+        placeholderTextColor={colors.heading}
       />
       <Styles.Label>{errorText}</Styles.Label>
     </Styles.Container>
